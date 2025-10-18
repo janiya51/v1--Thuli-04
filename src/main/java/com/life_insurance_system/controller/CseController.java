@@ -81,7 +81,11 @@ public class CseController {
     public String updateApplicationStatus(@RequestParam("applicationId") int applicationId, @RequestParam("status") String status, RedirectAttributes redirectAttributes) {
         Application application = applicationService.getApplicationById(applicationId);
         if (application != null) {
-            application.setCurrentStatus(Application.ApplicationStatus.valueOf(status));
+            if(status.equals("PendingSIA")) {
+                application.setCurrentStatus(Application.ApplicationStatus.Pending_SIA);
+            } else {
+                application.setCurrentStatus(Application.ApplicationStatus.valueOf(status));
+            }
             applicationService.updateApplication(application);
             redirectAttributes.addFlashAttribute("success", "Application status updated successfully!");
         } else {
@@ -98,7 +102,7 @@ public class CseController {
         }
 
         Application application = applicationService.getApplicationById(applicationId);
-        if (application != null && application.getCurrentStatus() == Application.ApplicationStatus.PendingCustomer) {
+        if (application != null && application.getCurrentStatus() == Application.ApplicationStatus.Pending_Customer) {
             application.setCurrentStatus(Application.ApplicationStatus.Accepted);
             applicationService.updateApplication(application);
 

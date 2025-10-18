@@ -47,7 +47,7 @@ CREATE TABLE applications (
     submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     product_type VARCHAR(50),
     desired_coverage DECIMAL(15,2),
-    current_status ENUM('Submitted', 'Incomplete', 'Pending SIA', 'Rejected', 'Pending FO', 'Pending Customer', 'Accepted') NOT NULL DEFAULT 'Submitted',
+    current_status ENUM('Submitted', 'Incomplete', 'Pending_SIA', 'Rejected', 'Pending_FO', 'Pending_Customer', 'Accepted') NOT NULL DEFAULT 'Submitted',
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -113,7 +113,7 @@ CREATE TABLE claims (
     policy_id INT NOT NULL,
     filing_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     claim_type VARCHAR(50),
-    claim_status ENUM('Filed', 'Documents Required', 'Pending SIA', 'Approved', 'Rejected', 'Paid', 'Archived') DEFAULT 'Filed',
+    claim_status ENUM('Filed', 'Documents_Required', 'Pending_SIA', 'Approved', 'Rejected', 'Paid', 'Archived') DEFAULT 'Filed',
     handler_id INT, -- SIA currently handling
     payout_amount DECIMAL(15,2),
     FOREIGN KEY (policy_id) REFERENCES policies(policy_id),
@@ -213,7 +213,7 @@ INSERT INTO customer_details (user_id, date_of_birth, phone_number, address, is_
 -- 3. Populate Applications (Testing Workflow Stages)
 INSERT INTO applications (user_id, product_type, desired_coverage, current_status) VALUES
 (1, 'Term Life 20Y', 500000.00, 'Accepted'),           -- App ID 1: Fully approved, ready for policy creation
-(1, 'Whole Life', 100000.00, 'Pending SIA'),           -- App ID 2: Awaiting SIA review
+(1, 'Whole Life', 100000.00, 'Pending_SIA'),           -- App ID 2: Awaiting SIA review
 (2, 'Term Life 10Y', 250000.00, 'Submitted'),          -- App ID 3: New, pending CSE review
 (2, 'Universal Life', 750000.00, 'Incomplete');        -- App ID 4: Needs additional info
 
@@ -239,7 +239,7 @@ INSERT INTO payments (policy_id, finance_officer_id, amount, payment_date, type,
 
 -- 8. Populate Claims
 INSERT INTO claims (policy_id, filing_date, claim_type, claim_status, handler_id, payout_amount) VALUES
-(1, '2024-11-10 10:00:00', 'Disability', 'Pending SIA', 4, NULL), -- Claim ID 1 (Active, awaiting SIA)
+(1, '2024-11-10 10:00:00', 'Disability', 'Pending_SIA', 4, NULL), -- Claim ID 1 (Active, awaiting SIA)
 (1, '2024-05-01 15:00:00', 'Hospitalization', 'Paid', 4, 5000.00), -- Claim ID 2 (Closed/Paid)
 (1, '2023-01-01 15:00:00', 'Accidental', 'Archived', 4, 1000.00); -- Claim ID 3 (Soft-deleted/Archived)
 
