@@ -38,13 +38,13 @@ public class CustomerController {
         return "customer/dashboard";
     }
 
-    @GetMapping("/apply")
+    @GetMapping("/apply-policy")
     public String applyForPolicy(Model model) {
         model.addAttribute("application", new Application());
         return "customer/apply_policy";
     }
 
-    @PostMapping("/apply")
+    @PostMapping("/apply-policy")
     public String submitApplication(@ModelAttribute Application application, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
