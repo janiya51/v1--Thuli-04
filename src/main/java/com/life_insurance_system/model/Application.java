@@ -40,7 +40,7 @@ public class Application {
     private ApplicationStatus currentStatus;
 
     public enum ApplicationStatus {
-        Submitted, Incomplete, PendingSIA, Rejected, PendingFO, PendingCustomer, Accepted
+        Submitted, Incomplete, Pending_SIA, Rejected, Pending_FO, Pending_Customer, Accepted
     }
 
     // Getters and Setters
