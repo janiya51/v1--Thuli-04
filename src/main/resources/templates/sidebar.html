@@ -14,27 +14,13 @@
         </div>
         <ul class="nav flex-column sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/customer/dashboard}" th:if="${#strings.equals(roleName, 'Customer')}" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a class="nav-link" th:href="@{/cse/dashboard}" th:if="${#strings.equals(roleName, 'Customer Service Executive')}" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a class="nav-link" th:href="@{/sia/dashboard}" th:if="${#strings.equals(roleName, 'Senior Insurance Advisor')}" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a class="nav-link" th:href="@{/fo/dashboard}" th:if="${#strings.equals(roleName, 'Finance Officer')}" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a class="nav-link" th:href="@{/admin/dashboard}" th:if="${#strings.equals(roleName, 'HR/Admin Manager')}" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a class="nav-link" th:href="@{/isa/dashboard}" th:if="${#strings.equals(roleName, 'IT System Analyst')}" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
+                <a class="nav-link" th:href="@{${#strings.equals(roleName, 'Customer') ? '/customer/dashboard' :
+                                                   #strings.equals(roleName, 'Customer Service Executive') ? '/cse/dashboard' :
+                                                   #strings.equals(roleName, 'Senior Insurance Advisor') ? '/sia/dashboard' :
+                                                   #strings.equals(roleName, 'Finance Officer') ? '/fo/dashboard' :
+                                                   #strings.equals(roleName, 'HR/Admin Manager') ? '/admin/dashboard' :
+                                                   #strings.equals(roleName, 'IT System Analyst') ? '/isa/dashboard' : ''}}"
+                   th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
