@@ -157,6 +157,17 @@ public class WebController {
         if (user == null) {
             return "redirect:/login";
         }
+        String roleName = user.getRole().getRoleName();
+        String dashboardUrl = switch (roleName) {
+            case "Customer" -> "/customer/dashboard";
+            case "Customer Service Executive" -> "/cse/dashboard";
+            case "Senior Insurance Advisor" -> "/sia/dashboard";
+            case "Finance Officer" -> "/fo/dashboard";
+            case "IT System Analyst" -> "/isa/dashboard";
+            case "HR/Admin Manager" -> "/admin/dashboard";
+            default -> "/login";
+        };
+        model.addAttribute("dashboardUrl", dashboardUrl);
         model.addAttribute("messages", internalMessageService.getInbox(user));
         return "messaging/inbox";
     }
@@ -214,6 +225,17 @@ public class WebController {
         if (user == null) {
             return "redirect:/login";
         }
+        String roleName = user.getRole().getRoleName();
+        String dashboardUrl = switch (roleName) {
+            case "Customer" -> "/customer/dashboard";
+            case "Customer Service Executive" -> "/cse/dashboard";
+            case "Senior Insurance Advisor" -> "/sia/dashboard";
+            case "Finance Officer" -> "/fo/dashboard";
+            case "IT System Analyst" -> "/isa/dashboard";
+            case "HR/Admin Manager" -> "/admin/dashboard";
+            default -> "/login";
+        };
+        model.addAttribute("dashboardUrl", dashboardUrl);
         model.addAttribute("users", userService.searchUsers(keyword));
         model.addAttribute("roleName", user.getRole().getRoleName());
         return "search_results";
@@ -226,6 +248,17 @@ public class WebController {
         if (user == null) {
             return "redirect:/login";
         }
+        String roleName = user.getRole().getRoleName();
+        String dashboardUrl = switch (roleName) {
+            case "Customer" -> "/customer/dashboard";
+            case "Customer Service Executive" -> "/cse/dashboard";
+            case "Senior Insurance Advisor" -> "/sia/dashboard";
+            case "Finance Officer" -> "/fo/dashboard";
+            case "IT System Analyst" -> "/isa/dashboard";
+            case "HR/Admin Manager" -> "/admin/dashboard";
+            default -> "/login";
+        };
+        model.addAttribute("dashboardUrl", dashboardUrl);
         model.addAttribute("user", user);
         model.addAttribute("roleName", user.getRole().getRoleName());
         if (user.getRole().getRoleName().equals("Customer")) {

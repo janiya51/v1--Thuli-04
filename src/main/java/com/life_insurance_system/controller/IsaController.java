@@ -76,7 +76,12 @@ public class IsaController {
         if (user == null) {
             return "redirect:/login";
         }
-        String dashboardUrl = "/" + user.getRole().getRoleName().toLowerCase().replace(" ", "").replace("/", "and") + "/dashboard";
+        String roleName = user.getRole().getRoleName();
+        String dashboardUrl = switch (roleName) {
+            case "IT System Analyst" -> "/isa/dashboard";
+            case "HR/Admin Manager" -> "/admin/dashboard";
+            default -> "/login";
+        };
         model.addAttribute("dashboardUrl", dashboardUrl);
         model.addAttribute("auditLogs", auditLogService.getAllAuditLogs());
         return "isa/view_audit_logs";
