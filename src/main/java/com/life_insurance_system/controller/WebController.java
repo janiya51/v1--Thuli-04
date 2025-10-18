@@ -209,8 +209,13 @@ public class WebController {
 
     // Search Functionality
     @GetMapping("/search")
-    public String search(@RequestParam("keyword") String keyword, Model model) {
+    public String search(@RequestParam("keyword") String keyword, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("users", userService.searchUsers(keyword));
+        model.addAttribute("roleName", user.getRole().getRoleName());
         return "search_results";
     }
 
@@ -222,6 +227,7 @@ public class WebController {
             return "redirect:/login";
         }
         model.addAttribute("user", user);
+        model.addAttribute("roleName", user.getRole().getRoleName());
         if (user.getRole().getRoleName().equals("Customer")) {
             model.addAttribute("customerDetail", customerDetailService.getCustomerDetailByUser(user));
         }
