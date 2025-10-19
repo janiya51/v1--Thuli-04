@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
-    @Query("SELECT a FROM Application a JOIN FETCH a.user WHERE a.applicationId = :id")
-    Optional<Application> findByIdWithUser(@Param("id") int id);
+    @Query("SELECT a FROM Application a JOIN FETCH a.user u JOIN FETCH u.role WHERE a.applicationId = :id")
+    Optional<Application> findByIdWithUserAndRole(@Param("id") int id);
 }
