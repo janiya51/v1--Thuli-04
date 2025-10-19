@@ -28,11 +28,11 @@ public class ApplicationService {
     }
 
     public List<Application> getAllApplications() {
-        return applicationRepository.findAll();
+        return applicationRepository.findAllWithUser();
     }
 
     public Application getApplicationById(int id) {
-        return applicationRepository.findByIdWithUserAndRole(id).orElse(null);
+        return applicationRepository.findByIdWithUser(id).orElse(null);
     }
 
     public Application updateApplication(Application application) {

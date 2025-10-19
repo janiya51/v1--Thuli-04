@@ -44,7 +44,7 @@ public class Claim {
     private BigDecimal payoutAmount;
 
     public enum ClaimStatus {
-        Filed, Documents_Required, Pending_SIA, Approved, Rejected, Paid, Archived
+        Filed, DocumentsRequired, PendingSIA, Approved, Rejected, Paid, Archived
     }
 
     // Getters and Setters

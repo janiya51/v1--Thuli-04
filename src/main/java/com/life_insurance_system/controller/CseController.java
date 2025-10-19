@@ -86,7 +86,7 @@ public class CseController {
         Application application = applicationService.getApplicationById(applicationId);
         if (application != null) {
             if(status.equals("PendingSIA")) {
-                application.setCurrentStatus(Application.ApplicationStatus.Pending_SIA);
+                application.setCurrentStatus(Application.ApplicationStatus.PendingSIA);
             } else {
                 application.setCurrentStatus(Application.ApplicationStatus.valueOf(status));
             }
@@ -106,7 +106,7 @@ public class CseController {
         }
 
         Application application = applicationService.getApplicationById(applicationId);
-        if (application != null && application.getCurrentStatus() == Application.ApplicationStatus.Pending_Customer) {
+        if (application != null && application.getCurrentStatus() == Application.ApplicationStatus.PendingCustomer) {
             application.setCurrentStatus(Application.ApplicationStatus.Accepted);
             applicationService.updateApplication(application);
 
@@ -161,7 +161,7 @@ public class CseController {
     public String forwardClaimToSia(@RequestParam("claimId") int claimId, RedirectAttributes redirectAttributes) {
         Claim claim = claimService.getClaimById(claimId);
         if (claim != null && claim.getClaimStatus() == Claim.ClaimStatus.Filed) {
-            claim.setClaimStatus(Claim.ClaimStatus.Pending_SIA);
+            claim.setClaimStatus(Claim.ClaimStatus.PendingSIA);
             claimService.updateClaim(claim);
             redirectAttributes.addFlashAttribute("success", "Claim forwarded to SIA successfully!");
         } else {

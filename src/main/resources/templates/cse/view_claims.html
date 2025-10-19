@@ -41,7 +41,7 @@
                             <td>
                                 <span class="badge"
                                       th:classappend="${#strings.equals(claim.claimStatus.name(), 'Filed') ? 'bg-primary' :
-                                                       (#strings.equals(claim.claimStatus.name(), 'Pending_SIA') ? 'bg-warning text-dark' :
+                                                       (#strings.equals(claim.claimStatus.name(), 'PendingSIA') ? 'bg-warning text-dark' :
                                                        (#strings.equals(claim.claimStatus.name(), 'Approved') ? 'bg-success' : 'bg-secondary'))}"
                                       th:text="${claim.claimStatus}">
                                 </span>
