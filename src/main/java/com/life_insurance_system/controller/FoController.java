@@ -60,7 +60,7 @@ public class FoController {
 
         Application application = applicationService.getApplicationById(applicationId);
         if (application != null) {
-            application.setCurrentStatus(Application.ApplicationStatus.Pending_Customer);
+            application.setCurrentStatus(Application.ApplicationStatus.PendingCustomer);
             applicationService.updateApplication(application);
             redirectAttributes.addFlashAttribute("success", "Premium calculated and application finalized!");
         } else {
