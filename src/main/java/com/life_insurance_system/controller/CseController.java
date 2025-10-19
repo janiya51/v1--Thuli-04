@@ -3,6 +3,7 @@ package com.life_insurance_system.controller;
 import com.life_insurance_system.model.Application;
 import com.life_insurance_system.model.CustomerDetail;
 import com.life_insurance_system.model.Policy;
+import com.life_insurance_system.model.Claim;
 import com.life_insurance_system.model.User;
 import com.life_insurance_system.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class CseController {
 
     @Autowired
     private PremiumService premiumService;
+
+    @Autowired
+    private ClaimService claimService;
 
     @GetMapping("/dashboard")
     public String cseDashboard() {
@@ -145,5 +149,24 @@ public class CseController {
         customerDetailService.approveCustomerUpdate(id);
         redirectAttributes.addFlashAttribute("success", "Customer update approved successfully!");
         return "redirect:/cse/review-updates";
+    }
+
+    @GetMapping("/claims")
+    public String viewClaims(Model model) {
+        model.addAttribute("claims", claimService.getAllClaims());
+        return "cse/view_claims";
+    }
+
+    @PostMapping("/claim/forward")
+    public String forwardClaimToSia(@RequestParam("claimId") int claimId, RedirectAttributes redirectAttributes) {
+        Claim claim = claimService.getClaimById(claimId);
+        if (claim != null && claim.getClaimStatus() == Claim.ClaimStatus.Filed) {
+            claim.setClaimStatus(Claim.ClaimStatus.Pending_SIA);
+            claimService.updateClaim(claim);
+            redirectAttributes.addFlashAttribute("success", "Claim forwarded to SIA successfully!");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Claim not found or cannot be forwarded.");
+        }
+        return "redirect:/cse/claims";
     }
 }
