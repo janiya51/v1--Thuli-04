@@ -32,7 +32,7 @@ public class ApplicationService {
     }
 
     public Application getApplicationById(int id) {
-        return applicationRepository.findByIdWithUser(id).orElse(null);
+        return applicationRepository.findByIdWithUserAndRole(id).orElse(null);
     }
 
     public Application updateApplication(Application application) {
